@@ -1,4 +1,4 @@
-package negronilogging
+package negroniloggo
 
 import (
 	"net/http"
