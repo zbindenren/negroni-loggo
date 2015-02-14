@@ -8,11 +8,6 @@ import (
 	"github.com/juju/loggo"
 )
 
-const (
-	// LoggoModuleName represents the name of the logger
-	LoggoModuleName = "request"
-)
-
 // Logger is a middleware handler that logs the request as it goes in and the response as it goes out.
 type Logger struct {
 	// Logger is the log.Logger instance used to log messages with the Logger middleware
@@ -20,15 +15,15 @@ type Logger struct {
 }
 
 // NewLogger returns a new *Logger with the standard loggo writer.
-func NewLogger() *Logger {
-	log := loggo.GetLogger(LoggoModuleName)
-	loggo.ConfigureLoggers(LoggoModuleName + "=INFO")
+func NewLogger(moduleName string) *Logger {
+	log := loggo.GetLogger(moduleName)
+	loggo.ConfigureLoggers(moduleName + "=INFO")
 	return &Logger{&log}
 }
 
 // NewLoggerWithCustomWriter returns a new *Logger with with a custom writer.
-func NewLoggerWithCustomWriter(writer loggo.Writer) *Logger {
-	log := NewLogger()
+func NewLoggerWithCustomWriter(moduleName string, writer loggo.Writer) *Logger {
+	log := NewLogger(moduleName)
 	loggo.ReplaceDefaultWriter(writer)
 	return log
 }
