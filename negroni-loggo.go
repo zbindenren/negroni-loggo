@@ -9,6 +9,7 @@ import (
 )
 
 const (
+	// LoggoModuleName represents the name of the logger
 	LoggoModuleName = "request"
 )
 
