@@ -31,7 +31,7 @@ func main() {
 	n := negroni.New()
 	// use the custom loggo formatter
 	n.Use(negronilogging.NewLoggerWithCustomWriter(loggo.NewSimpleWriter(os.Stderr, &logFormatter{})))
-	// to use the default formatter
+	// to use the default loggo formatter
 	// n.Use(negronilogging.NewLogger())
 	n.UseHandler(r)
 
