@@ -9,27 +9,27 @@ import (
 )
 
 const (
-	ModuleName = "request"
+	LoggoModuleName = "request"
 )
 
-// LoggoLogerMiddleware is a middleware handler that logs the request as it goes in and the response as it goes out.
+// Logger is a middleware handler that logs the request as it goes in and the response as it goes out.
 type Logger struct {
 	// Logger is the log.Logger instance used to log messages with the Logger middleware
 	*loggo.Logger
 }
 
-// NewMiddleware returns a new *Middleware, yay!
+// NewLogger returns a new *Logger with the standard loggo writer.
 func NewLogger() *Logger {
-	log := loggo.GetLogger(ModuleName)
-	loggo.ConfigureLoggers(ModuleName + "=INFO")
+	log := loggo.GetLogger(LoggoModuleName)
+	loggo.ConfigureLoggers(LoggoModuleName + "=INFO")
 	return &Logger{&log}
 }
 
+// NewLoggerWithCustomWriter returns a new *Logger with with a custom writer.
 func NewLoggerWithCustomWriter(writer loggo.Writer) *Logger {
-	log := loggo.GetLogger(ModuleName)
-	loggo.ConfigureLoggers(ModuleName + "=INFO")
+	log := NewLogger()
 	loggo.ReplaceDefaultWriter(writer)
-	return &Logger{&log}
+	return log
 }
 
 func (l *Logger) ServeHTTP(rw http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
